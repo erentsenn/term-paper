@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   # Spark Master 
-  spark_master:
+  spark-master:
     image: bde2020/spark-master:3.2.0-hadoop3.2
     hostname: oasissparkm
     container_name: oasis-lakehouse-spark-master
@@ -24,7 +24,7 @@ services:
     hostname: oasissparkw1
     container_name: oasis-lakehouse-spark-worker-1
     depends_on: 
-      - spark_master
+      - spark-master
     ports:
       - "8081:8081"
     env_file:
@@ -32,6 +32,10 @@ services:
     volumes:
       - ./spark/app:/usr/local/spark/app 
       - ./spark/resources:/usr/local/spark/resources
+    environment: 
+      SPARK_LOCAL_IP: oasissparkw1 
+      SPARK_RPC_HOST: oasissparkw1 
+      SPARK_WORKER_WEBUI_PORT: 8081
     networks:
       - oasis 
 
@@ -43,9 +47,13 @@ services:
     ports:
       - "8083:8081"
     depends_on: 
-      - spark_master
+      - spark-master
     env_file:
       - .env
+    environment: 
+      SPARK_LOCAL_IP: oasissparkw2 
+      SPARK_RPC_HOST: oasissparkw2 
+      SPARK_WORKER_WEBUI_PORT: 8081
     volumes:
       - ./spark/app:/usr/local/spark/app
       - ./spark/resources:/usr/local/spark/resources
@@ -60,9 +68,13 @@ services:
     ports:
       - "8084:8081"
     depends_on: 
-      - spark_master
+      - spark-master
     env_file:
       - .env
+    environment: 
+      SPARK_LOCAL_IP: oasissparkw3
+      SPARK_RPC_HOST: oasissparkw3
+      SPARK_WORKER_WEBUI_PORT: 8081
     volumes:
       - ./spark/app:/usr/local/spark/app
       - ./spark/resources:/usr/local/spark/resources

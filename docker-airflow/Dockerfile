@@ -1,15 +1,5 @@
-# Building on Top of Airflow version 2.2.3
-# AUTHOR: Mahmud Oyinloye 
-# Contributors: Demilade Somide, John Oloniyo
-# Supervising Line Manager: Oladimeji Oladepo
-# DESRIPTION: AIRFLOW Container with Java 11 and SPARK BINARIES 
-# BUILD: docker build --rm --force-rm -t docker-prunedge:latest . 
-# BASED ON: https://github.com/puckel/docker-airflow
-# INSPIRED BY: https://github.com/cordon-thiago/airflow-spark
-
-
 # Airflow Image Definition 
-ARG AIRFLOW_BASE_IMAGE=apache/airflow:2.2.3-python3.7
+ARG AIRFLOW_BASE_IMAGE=apache/airflow:2.5.3-python3.10
 ARG AIRFLOW_HOME=/opt/airflow
 FROM docker.io/${AIRFLOW_BASE_IMAGE}
 
